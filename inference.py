@@ -7,7 +7,7 @@ sys.path.append('/home/pi/models/research/slim')
 import tensorflow as tf
 from nets.mobilenet import mobilenet_v2
 
-from datasets import imagenet
+# from datasets import imagenet
 import PIL
 
 import numpy as np
