@@ -1,6 +1,7 @@
 checkpoint_name = 'mobilenet_v2_0.35_96' #@param
 
 # setup path
+import cv2
 import sys
 sys.path.append('/home/pi/models/research/slim')
 imagenet_labels = {0: 'tench, Tinca tinca',
@@ -1035,9 +1036,11 @@ with tf.Session(graph=inp.graph):
                 # stream.array now contains the image data in BGR order
                 new_im = PIL.Image.fromarray(stream.array)
                 img = np.array(new_im.resize((96,96))).astype(np.float) / 128 - 1
+                cv2.imshow('image',stream.array)
+                cv2.waitKey(10)
                 x = predictions.eval(feed_dict={inp: img.reshape(1, 96,96, 3)})
                 print(x.argmax())
-                print(imagenet_labels[x.argmax()])
+                print(imagenet_labels[x.argmax()-1])
                 # reset the stream before the next capture
                 stream.seek(0)
                 stream.truncate()
